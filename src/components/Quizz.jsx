@@ -21,6 +21,32 @@ export default function Quizz(props) {
     
         return array;
     }
+
+   
+    function highlightCorrectAnswers() {
+        const allQuestions = document.querySelectorAll('.question-container');
+        // console.log('allQuestions)', allQuestions);
+        const correctAnswer = props.quizzData.map(question => question.correct_answer);
+        console.log('correctAnswer)', correctAnswer);
+    
+        allQuestions.forEach((questionContainer, index) => {
+            const inputsArrayByQuestion = questionContainer.querySelectorAll('.answer-input');
+            const labels = questionContainer.querySelectorAll('.answer-label');
+
+            console.log(`inputs for question ${ index+1}`, inputsArrayByQuestion);
+
+            inputsArrayByQuestion.forEach((input, i) => {
+                if (input.value === correctAnswer[index]) {
+                    labels[i].style.backgroundColor = 'lightgreen';
+                }
+                else if (input.checked && input.value !== correctAnswer[index]) {
+                    labels[i].style.backgroundColor = 'lightcoral';
+                }
+            })
+    
+            
+        });
+    }
     
     const questionsElements = props.quizzData.map((question, index) => {
         const answers = shuffle([...question.incorrect_answers, question.correct_answer]);
@@ -33,12 +59,12 @@ export default function Quizz(props) {
                         <div key={i}>
                             <input 
                                 type="radio" 
-                                id={`question-${index}-answer-${i+1}`} 
-                                name={`question-${index}`} 
+                                id={`question-${index+1}-answer-${i+1}`} 
+                                name={`question-${index+1}`} 
                                 value={answer}
                                 className='answer-input' 
                             />
-                            <label className='answer-label' htmlFor={`question-${index}-answer-${i+1}`}>{decode(answer)}</label>
+                            <label className='answer-label' htmlFor={`question-${index+1}-answer-${i+1}`}>{decode(answer)}</label>
                         </div>
                     ))}
                 </div>
@@ -49,7 +75,7 @@ export default function Quizz(props) {
     return (
         <div className='quizz'>
             {questionsElements}
-            <button className='check-answers-btn'>Check Answers</button>
+            <button className='check-answers-btn' onClick={highlightCorrectAnswers}>Check Answers</button>
         </div>
         
     )

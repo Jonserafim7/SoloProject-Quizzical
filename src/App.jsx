@@ -13,16 +13,12 @@ function App() {
     if (quizzStarted) {
       fetch('https://opentdb.com/api.php?amount=5')
       .then(res => res.json())
-      .then(data => {
-        console.log(data.results)
-        setQuizzData(data.results)
-        })
+      .then(data => {setQuizzData(data.results)})
     }
   }, [quizzStarted])
 
   function handleStartQuizz() {
-    console.log('Quizz started')
-    setQuizzStarted(true)
+    setQuizzStarted(prevState => !prevState)
   }
 
   return (
