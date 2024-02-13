@@ -10,11 +10,24 @@ function App() {
 
   
   useEffect(() => {
-    if (quizzStarted) {
-      fetch('https://opentdb.com/api.php?amount=5')
-      .then(res => res.json())
-      .then(data => {setQuizzData(data.results)})
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://opentdb.com/api.php?amount=5')
+        const data = await response.json()
+        setQuizzData(data.results)
+        console.log('fetching data 1')
+        console.log(data.results)
+      }
+      catch (error) {
+        console.log(error)
+        alert('An error occurred while fetching the data')
+      }
     }
+
+    if (quizzStarted) {
+      fetchData()
+    }
+
   }, [quizzStarted])
 
   function handleStartQuizz() {
@@ -26,9 +39,11 @@ function App() {
       {quizzStarted ? 
         <Quizz 
           quizzData={quizzData}
+          setQuizzData={setQuizzData}
+          quizzStarted={quizzStarted}
         /> : 
         <Intro 
-          setQuizzStarted={handleStartQuizz}
+          handleStartQuizz={handleStartQuizz}
         />
       }
     </>

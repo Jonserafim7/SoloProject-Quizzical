@@ -36,7 +36,8 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .intro button,
-.check-answers-btn {
+.check-answers-btn,
+.reset-answers-btn {
   border: none;
   padding: 15px 60px;
   border-radius: 12px;
@@ -47,7 +48,9 @@ h1, h2, h3, h4, h5, h6, p {
   cursor: pointer;
 }
 
-.intro button:hover, .check-answers-btn:hover {
+.intro button:hover,
+.check-answers-btn:hover,
+.reset-answers-btn:hover {
   background-color: #293264;
 }
 
@@ -86,12 +89,23 @@ h1, h2, h3, h4, h5, h6, p {
   border-radius: 10px;
 }
 
-.answer-label:hover, .answer-input:checked + .answer-label {
+.answer-label:hover, 
+.answer-input:checked + .answer-label,
+.answer-input:focus + .answer-label,
+.answer-input:active + .answer-label {
   background-color: #D6DBF5;
   border: none;
 }
 
-.check-answers-btn {
-  display: block;
-  margin: 0 auto;
+.score-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
 }
+
+.reset-answers-btn {
+  margin-top: unset;
+}
+
